@@ -1,0 +1,27 @@
+{"level":30,"time":"2025-04-12T02:18:15.853Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"Listening on 54129"}
+{"level":30,"time":"2025-04-12T02:18:16.244Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-04-12T02:18:16.244Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-04-12T02:18:16.249Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-04-12T02:18:16.249Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Python312\Lib\site-packages\Browser\wrapper\index.js:9470:15)
+    at PlaywrightServer.getActiveBrowser (C:\Python312\Lib\site-packages\Browser\wrapper\index.js:9991:59)
+    at PlaywrightServer.setTimeout (C:\Python312\Lib\site-packages\Browser\wrapper\index.js:10237:57)
+    at handleUnary (C:\Python312\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:852:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+=============================================================
+{"level":30,"time":"2025-04-12T02:18:16.606Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-04-12T02:18:16.606Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Python312\Lib\site-packages\Browser\wrapper\index.js:9470:15)
+    at PlaywrightServer.getActiveBrowser (C:\Python312\Lib\site-packages\Browser\wrapper\index.js:9991:59)
+    at PlaywrightServer.setTimeout (C:\Python312\Lib\site-packages\Browser\wrapper\index.js:10237:57)
+    at handleUnary (C:\Python312\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:852:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+=============================================================
+{"level":30,"time":"2025-04-12T02:18:16.643Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-04-12T02:18:16.643Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-04-12T02:18:16.723Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2025-04-12T02:18:16.723Z","pid":21976,"hostname":"NWILLIANSOUZA","msg":"End of node method closeAllBrowsers"}

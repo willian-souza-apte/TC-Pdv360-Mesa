@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.12.0 on win32)" generated="20250425 12:32:12.082" rpa="false" schemaversion="4">
+<suite id="s1" name="Tests" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests">
+<suite id="s1-s1" name="TC[00]-authorization" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests\TC[00]-authorization.robot">
+<test id="s1-s1-t1" name="Should get access token" line="7">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:36.324" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:36.324" endtime="20250425 12:32:36.325"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:36.326" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:36.325" endtime="20250425 12:32:36.326"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:36.328" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:36.327" endtime="20250425 12:32:36.328"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:38.195" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:38.195" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:38 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNTcsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk1NywiaWF0IjoxNzQ1NTk1MTU3LCJqdGkiOiJmMmEwN2NmYS1jN2Y2LTQ0YWUtOGRlNC0xNGMxNGI5NzU1ODMiLCJhdXRob3JpdGllcyI6W119.QFPi_miuf3hC9PsllmIrXq510Ac7t6pw0u_JvMSWLWrQ7D423kd9MFP0MX9z0aWKlOJQwINkm0DVrnxBiAK3A4T3XkyokwKEfNsWgKq6edwTliNjpovDqQ_udqyz4Rb59wDqsor0788kjiEgOtUx7mLlr9D04DsBRvdKgzBrz_zj_HIRUTQQhR7b01Ebt9jCloqmjXnJAPzNTFvU0IriMOuVeov_MWoML4q8kvO4mVmVLowfw811GmdSiO29xJWn7jTzjC_MzuTy0iU4P2Z9YtpnbTR-Ef5Mddps0et4eCgVDhZyZO-MqCkAALOkOE9AneBreCqdLdB2bYVw49UUXw","scope":"profile","token_type":"Bearer","expires_in":1799} 
+ </msg>
+<msg timestamp="20250425 12:32:38.196" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:36.329" endtime="20250425 12:32:38.196"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:38.200" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:38.196" endtime="20250425 12:32:38.200"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:38.200" endtime="20250425 12:32:38.200"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:36.323" endtime="20250425 12:32:38.201"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:36.314" endtime="20250425 12:32:38.203"/>
+</test>
+<doc>Get token to authentication</doc>
+<status status="PASS" starttime="20250425 12:32:12.189" endtime="20250425 12:32:38.293"/>
+</suite>
+<suite id="s1-s2" name="TC[01]-physical-table-open" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests\TC[01]-physical-table-open.robot">
+<test id="s1-s2-t1" name="Physical table open" line="14">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:38.538" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:38.537" endtime="20250425 12:32:38.538"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:38.539" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:38.539" endtime="20250425 12:32:38.539"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:38.541" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:38.540" endtime="20250425 12:32:38.541"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:38.988" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:38.989" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:38 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNTgsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk1OCwiaWF0IjoxNzQ1NTk1MTU4LCJqdGkiOiIzZDNiNGZiOC0yZGY5LTRlNWYtYWMxYy0zMWYzZjE0YWZmNWUiLCJhdXRob3JpdGllcyI6W119.hpVJhW9BVsfMq9HPyvzZT84wQO0cqV_cLsumzCo4Iy6mwHZTocZAaHd2K3mp816ywOgBu1Nsjn68rw7gd7kXqG-47wH8yvZbTFvV3m1ZoZPBTUmsLDHiSpuzmTbodVIbQiOA0ZB3HIutFlqM23ymmjnLt6V3LK8z_jFsYTLafAkhfsv25s1ALgyBWxJIXy8TySmPpQTp1o_jXcWj0ocGia7dx9oTo8TZvCT4BXr88QVEmYx68caR-D-gF4JhSKuSGa8mJ31aLsoDn5uZT571GIzuk8cWagTs5T0QDb3sw2znlOrF3MKKnJ8gwlGuLbuanmGY5ekCe7PjSKsKiyYj1w","scope":"profile","token_type":"Bearer","expires_in":1800} 
+ </msg>
+<msg timestamp="20250425 12:32:38.989" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:38.542" endtime="20250425 12:32:38.989"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:38.991" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:38.989" endtime="20250425 12:32:38.991"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:38.991" endtime="20250425 12:32:38.992"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:38.537" endtime="20250425 12:32:38.992"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:38.536" endtime="20250425 12:32:38.992"/>
+</kw>
+<kw name="Should be open table physical with all attributes filled" library="Physical-table-open">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:38.994" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:38.993" endtime="20250425 12:32:38.994"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:38.995" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:38.994" endtime="20250425 12:32:38.995"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${BODY}</var>
+<arg>physical_table_id=${physical_table_id}</arg>
+<arg>waiter_id=${waiter_id}</arg>
+<arg>consumer_name=${consumer_name}</arg>
+<arg>current_people=${current_people}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:38.996" level="INFO">${BODY} = {'physical_table_id': '1', 'waiter_id': '1', 'consumer_name': 'Felix', 'current_people': '2'}</msg>
+<status status="PASS" starttime="20250425 12:32:38.995" endtime="20250425 12:32:38.996"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${JSON}</var>
+<arg>json.dumps(${BODY})</arg>
+<arg>modules=json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20250425 12:32:38.998" level="INFO">${JSON} = {"physical_table_id": "1", "waiter_id": "1", "consumer_name": "Felix", "current_people": "2"}</msg>
+<status status="PASS" starttime="20250425 12:32:38.997" endtime="20250425 12:32:38.998"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>headers=${HEADER}</arg>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/physical-tables/open</arg>
+<arg>data=${JSON}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:39.478" level="INFO">POST Request : url=http://localhost:8080/api/physical-tables/open 
+ path_url=/api/physical-tables/open 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNTgsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk1OCwiaWF0IjoxNzQ1NTk1MTU4LCJqdGkiOiIzZDNiNGZiOC0yZGY5LTRlNWYtYWMxYy0zMWYzZjE0YWZmNWUiLCJhdXRob3JpdGllcyI6W119.hpVJhW9BVsfMq9HPyvzZT84wQO0cqV_cLsumzCo4Iy6mwHZTocZAaHd2K3mp816ywOgBu1Nsjn68rw7gd7kXqG-47wH8yvZbTFvV3m1ZoZPBTUmsLDHiSpuzmTbodVIbQiOA0ZB3HIutFlqM23ymmjnLt6V3LK8z_jFsYTLafAkhfsv25s1ALgyBWxJIXy8TySmPpQTp1o_jXcWj0ocGia7dx9oTo8TZvCT4BXr88QVEmYx68caR-D-gF4JhSKuSGa8mJ31aLsoDn5uZT571GIzuk8cWagTs5T0QDb3sw2znlOrF3MKKnJ8gwlGuLbuanmGY5ekCe7PjSKsKiyYj1w', 'Content-Length': '93'} 
+ body={"physical_table_id": "1", "waiter_id": "1", "consumer_name": "Felix", "current_people": "2"} 
+ </msg>
+<msg timestamp="20250425 12:32:39.478" level="INFO">POST Response : url=http://localhost:8080/api/physical-tables/open 
+ status=201, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'Location': '/physical-tables/1', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:39 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"id":1,"physical_table_id":1,"waiter_id":1,"consumer_name":"Felix","current_people":2} 
+ </msg>
+<msg timestamp="20250425 12:32:39.479" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:38.999" endtime="20250425 12:32:39.479"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20250425 12:32:39.479" endtime="20250425 12:32:39.480"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${json_response}</arg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:39.483" level="INFO">${json_response} = {'id': 1, 'physical_table_id': 1, 'waiter_id': 1, 'consumer_name': 'Felix', 'current_people': 2}</msg>
+<status status="PASS" starttime="20250425 12:32:39.480" endtime="20250425 12:32:39.483"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${table}</var>
+<arg>${json_response}</arg>
+<arg>physical_table_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20250425 12:32:39.484" level="INFO">${table} = 1</msg>
+<status status="PASS" starttime="20250425 12:32:39.483" endtime="20250425 12:32:39.484"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${name}</var>
+<arg>${json_response}</arg>
+<arg>consumer_name</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20250425 12:32:39.486" level="INFO">${name} = Felix</msg>
+<status status="PASS" starttime="20250425 12:32:39.485" endtime="20250425 12:32:39.486"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>1</arg>
+<arg>${table}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250425 12:32:39.487" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:39.486" endtime="20250425 12:32:39.487"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>Felix</arg>
+<arg>${name}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20250425 12:32:39.487" endtime="20250425 12:32:39.488"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:38.993" endtime="20250425 12:32:39.488"/>
+</kw>
+<kw name="Should be open table physical with optional attributes filled" library="Physical-table-open">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:39.491" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:39.490" endtime="20250425 12:32:39.491"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:39.493" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:39.492" endtime="20250425 12:32:39.493"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${BODY}</var>
+<arg>physical_table_id=2</arg>
+<arg>waiter_id=null</arg>
+<arg>consumer_name=</arg>
+<arg>current_people=null</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:39.494" level="INFO">${BODY} = {'physical_table_id': '2', 'waiter_id': 'null', 'consumer_name': '', 'current_people': 'null'}</msg>
+<status status="PASS" starttime="20250425 12:32:39.493" endtime="20250425 12:32:39.494"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${JSON}</var>
+<arg>json.dumps(${BODY})</arg>
+<arg>modules=json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20250425 12:32:39.495" level="INFO">${JSON} = {"physical_table_id": "2", "waiter_id": "null", "consumer_name": "", "current_people": "null"}</msg>
+<status status="PASS" starttime="20250425 12:32:39.494" endtime="20250425 12:32:39.495"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>headers=${HEADER}</arg>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/physical-tables/open</arg>
+<arg>data=${JSON}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:39.575" level="INFO">POST Request : url=http://localhost:8080/api/physical-tables/open 
+ path_url=/api/physical-tables/open 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNTgsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk1OCwiaWF0IjoxNzQ1NTk1MTU4LCJqdGkiOiIzZDNiNGZiOC0yZGY5LTRlNWYtYWMxYy0zMWYzZjE0YWZmNWUiLCJhdXRob3JpdGllcyI6W119.hpVJhW9BVsfMq9HPyvzZT84wQO0cqV_cLsumzCo4Iy6mwHZTocZAaHd2K3mp816ywOgBu1Nsjn68rw7gd7kXqG-47wH8yvZbTFvV3m1ZoZPBTUmsLDHiSpuzmTbodVIbQiOA0ZB3HIutFlqM23ymmjnLt6V3LK8z_jFsYTLafAkhfsv25s1ALgyBWxJIXy8TySmPpQTp1o_jXcWj0ocGia7dx9oTo8TZvCT4BXr88QVEmYx68caR-D-gF4JhSKuSGa8mJ31aLsoDn5uZT571GIzuk8cWagTs5T0QDb3sw2znlOrF3MKKnJ8gwlGuLbuanmGY5ekCe7PjSKsKiyYj1w', 'Content-Length': '94'} 
+ body={"physical_table_id": "2", "waiter_id": "null", "consumer_name": "", "current_people": "null"} 
+ </msg>
+<msg timestamp="20250425 12:32:39.575" level="INFO">POST Response : url=http://localhost:8080/api/physical-tables/open 
+ status=201, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'Location': '/physical-tables/2', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:39 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"id":2,"physical_table_id":2,"waiter_id":null,"consumer_name":"","current_people":null} 
+ </msg>
+<msg timestamp="20250425 12:32:39.576" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:39.495" endtime="20250425 12:32:39.576"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20250425 12:32:39.576" endtime="20250425 12:32:39.576"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${json_response}</arg>
+<arg>${RESPONSE.json()}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:39.578" level="INFO">${json_response} = {'id': 2, 'physical_table_id': 2, 'waiter_id': None, 'consumer_name': '', 'current_people': None}</msg>
+<status status="PASS" starttime="20250425 12:32:39.577" endtime="20250425 12:32:39.578"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${table}</var>
+<arg>${json_response}</arg>
+<arg>physical_table_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20250425 12:32:39.579" level="INFO">${table} = 2</msg>
+<status status="PASS" starttime="20250425 12:32:39.578" endtime="20250425 12:32:39.579"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${waiter_id}</var>
+<arg>${json_response}</arg>
+<arg>waiter_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20250425 12:32:39.582" level="INFO">${waiter_id} = None</msg>
+<status status="PASS" starttime="20250425 12:32:39.580" endtime="20250425 12:32:39.582"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${None}</arg>
+<arg>${waiter_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20250425 12:32:39.582" endtime="20250425 12:32:39.583"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>2</arg>
+<arg>${table}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250425 12:32:39.584" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:39.583" endtime="20250425 12:32:39.584"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:39.489" endtime="20250425 12:32:39.584"/>
+</kw>
+<tag>physical-table</tag>
+<status status="PASS" starttime="20250425 12:32:38.526" endtime="20250425 12:32:39.585"/>
+</test>
+<test id="s1-s2-t2" name="Physical table with id in use" line="19">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:39.683" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:39.682" endtime="20250425 12:32:39.684"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:39.685" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:39.684" endtime="20250425 12:32:39.685"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:39.687" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:39.685" endtime="20250425 12:32:39.687"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:40.189" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:40.189" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:39 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjAsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MCwiaWF0IjoxNzQ1NTk1MTYwLCJqdGkiOiI0NjdjNzZjNi1jNWU2LTRmOTMtOTU0OS00NjU0OTM1ZTAzMTAiLCJhdXRob3JpdGllcyI6W119.GHhktHUMKMBpuRVfpe1nIvNSCUd4hzXHnt4N8N4wRVMEtWIq7kihNCK8h-Xks2SjAOIUE1sw-j4ThkmGNR_baX0wKUiKj5Vpd4PVzq1pN9vkKAThSs86jqqgSvhSvlyw1p2rzWxrO7DCvAr3Ppb4K9VXPFI2BzGjgS3Glr6M0J_j1zIkr1eEQlJ6qkdR8RA7plyDGMJl-q8m143_XlR602Dn1XOLsaqNQsuuERpiakMg7ULDUR_HfcGQtLgyHdCqEl929N6Tf3HC47qCIQVgTUjgZ_nBiq2tbVbJqsOj5HtdpkGC9RNqlEoUkvsQDnx9z_ZcpTOBcSmiJlHUs2yT3g","scope":"profile","token_type":"Bearer","expires_in":1800} 
+ </msg>
+<msg timestamp="20250425 12:32:40.189" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:39.687" endtime="20250425 12:32:40.189"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:40.191" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:40.190" endtime="20250425 12:32:40.191"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:40.191" endtime="20250425 12:32:40.192"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:39.681" endtime="20250425 12:32:40.192"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:39.680" endtime="20250425 12:32:40.192"/>
+</kw>
+<kw name="Should not open table physical with id of table is open" library="Physical-table-open">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:40.194" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:40.194" endtime="20250425 12:32:40.195"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:40.196" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:40.195" endtime="20250425 12:32:40.196"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${BODY}</var>
+<arg>physical_table_id=${physical_table_id}</arg>
+<arg>waiter_id=${waiter_id}</arg>
+<arg>consumer_name=${consumer_name}</arg>
+<arg>current_people=${current_people}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:40.199" level="INFO">${BODY} = {'physical_table_id': '1', 'waiter_id': '1', 'consumer_name': 'Felix', 'current_people': '2'}</msg>
+<status status="PASS" starttime="20250425 12:32:40.197" endtime="20250425 12:32:40.200"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${JSON}</var>
+<arg>json.dumps(${BODY})</arg>
+<arg>modules=json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20250425 12:32:40.202" level="INFO">${JSON} = {"physical_table_id": "1", "waiter_id": "1", "consumer_name": "Felix", "current_people": "2"}</msg>
+<status status="PASS" starttime="20250425 12:32:40.200" endtime="20250425 12:32:40.202"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>headers=${HEADER}</arg>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/physical-tables/open</arg>
+<arg>expected_status=any</arg>
+<arg>data=${JSON}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:40.324" level="INFO">POST Request : url=http://localhost:8080/api/physical-tables/open 
+ path_url=/api/physical-tables/open 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjAsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MCwiaWF0IjoxNzQ1NTk1MTYwLCJqdGkiOiI0NjdjNzZjNi1jNWU2LTRmOTMtOTU0OS00NjU0OTM1ZTAzMTAiLCJhdXRob3JpdGllcyI6W119.GHhktHUMKMBpuRVfpe1nIvNSCUd4hzXHnt4N8N4wRVMEtWIq7kihNCK8h-Xks2SjAOIUE1sw-j4ThkmGNR_baX0wKUiKj5Vpd4PVzq1pN9vkKAThSs86jqqgSvhSvlyw1p2rzWxrO7DCvAr3Ppb4K9VXPFI2BzGjgS3Glr6M0J_j1zIkr1eEQlJ6qkdR8RA7plyDGMJl-q8m143_XlR602Dn1XOLsaqNQsuuERpiakMg7ULDUR_HfcGQtLgyHdCqEl929N6Tf3HC47qCIQVgTUjgZ_nBiq2tbVbJqsOj5HtdpkGC9RNqlEoUkvsQDnx9z_ZcpTOBcSmiJlHUs2yT3g', 'Content-Length': '93'} 
+ body={"physical_table_id": "1", "waiter_id": "1", "consumer_name": "Felix", "current_people": "2"} 
+ </msg>
+<msg timestamp="20250425 12:32:40.325" level="INFO">POST Response : url=http://localhost:8080/api/physical-tables/open 
+ status=422, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:39 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"message":"Erro ao iniciar atendimento. Tente novamente mais tarde.","key_message":"com.apte.pdv360.usecase.physicaltable.open.DefaultOpenPhysicalTableUseCase.classError","errors":[{"message":"Não foi possível iniciar o atendimento. Mesa já se encontra ocupada.","key_message":"com.apte.pdv360.domain.physicaltable.PhysicalTableValidator.busyTable"}]} 
+ </msg>
+<msg timestamp="20250425 12:32:40.325" level="INFO">${RESPONSE} = &lt;Response [422]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:40.202" endtime="20250425 12:32:40.325"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Status code: ${RESPONSE.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250425 12:32:40.327" level="INFO">Status code: 422</msg>
+<status status="PASS" starttime="20250425 12:32:40.326" endtime="20250425 12:32:40.327"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${body}</var>
+<arg>${RESPONSE.json()}</arg>
+<arg>modules=requests</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250425 12:32:40.333" level="INFO">${body} = [{'message': 'Erro ao iniciar atendimento. Tente novamente mais tarde.', 'key_message': 'com.apte.pdv360.usecase.physicaltable.open.DefaultOpenPhysicalTableUseCase.classError', 'errors': [{'message': ...</msg>
+<status status="PASS" starttime="20250425 12:32:40.328" endtime="20250425 12:32:40.334"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Mensagem principal: ${RESPONSE.json()['message']}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250425 12:32:40.336" level="INFO">Mensagem principal: Erro ao iniciar atendimento. Tente novamente mais tarde.</msg>
+<status status="PASS" starttime="20250425 12:32:40.334" endtime="20250425 12:32:40.336"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Detalhe: ${RESPONSE.json()['errors'][0]['message']}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250425 12:32:40.338" level="INFO">Detalhe: Não foi possível iniciar o atendimento. Mesa já se encontra ocupada.</msg>
+<status status="PASS" starttime="20250425 12:32:40.337" endtime="20250425 12:32:40.339"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:40.193" endtime="20250425 12:32:40.339"/>
+</kw>
+<tag>smoke</tag>
+<status status="PASS" starttime="20250425 12:32:39.675" endtime="20250425 12:32:40.340"/>
+</test>
+<test id="s1-s2-t3" name="Clean database" line="23">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:40.496" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:40.495" endtime="20250425 12:32:40.496"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:40.500" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:40.497" endtime="20250425 12:32:40.501"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:40.506" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:40.501" endtime="20250425 12:32:40.506"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:40.960" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:40.960" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:40 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjAsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MCwiaWF0IjoxNzQ1NTk1MTYwLCJqdGkiOiJmYTU2YWM2OS1hYjIxLTRkZDctOTNkNS1iMjI0ZTM4M2VhMGUiLCJhdXRob3JpdGllcyI6W119.sHFzekS8OqBGZVCVIzRVh6A_VjERHv9L9mhDrruSBsDHLeMBeXSR9mhw7JjDDoFHFnMkEI4p3W4th-9eViZLwAfBoqdADc9K74risLT9SbEkslGzicUr15jKR3uRkfhSDYyQ0xwlIxpMsTQ56RsiGbtDGZ8ofWViTSUc5uFJMdSte9YGxRPfKDixJqiyBcC0YonR-pEu_ddOf64mTeyepWkOoCk04qKNJaPng1scvqNcoizHFSwOxrwi7OoM45qId34v8QD8KXbVdALrliM3A53TqEgHsWSQX-8BuA5jBnD9ZMedywW1Zik440Cjr6nimbDUtXmYKKzMer5EqJ35hw","scope":"profile","token_type":"Bearer","expires_in":1800} 
+ </msg>
+<msg timestamp="20250425 12:32:40.961" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:40.507" endtime="20250425 12:32:40.961"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:40.962" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:40.961" endtime="20250425 12:32:40.962"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:40.962" endtime="20250425 12:32:40.963"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:40.494" endtime="20250425 12:32:40.963"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:40.493" endtime="20250425 12:32:40.964"/>
+</kw>
+<kw name="Limpar Atendimento Da Mesa" library="clean-database">
+<kw name="Conectar Ao Banco" library="clean-database">
+<kw name="Connect To Database" library="DatabaseLibrary">
+<arg>psycopg2</arg>
+<arg>${DB_NAME}</arg>
+<arg>${DB_USER}</arg>
+<arg>${DB_PWD}</arg>
+<arg>${DB_HOST}</arg>
+<arg>${DB_PORT}</arg>
+<doc>Creates a database connection using the DB API 2.0 ``db_module`` and the parameters provided.
+Along with listed commonly used arguments (`db_name`, `db_host` etc.)
+you can set any other DB module specific parameters as key/value pairs.</doc>
+<msg timestamp="20250425 12:32:40.970" level="INFO">Looking for configuration file: 'resources\db.cfg'</msg>
+<msg timestamp="20250425 12:32:40.970" level="INFO">Configuration file doesn't exist</msg>
+<msg timestamp="20250425 12:32:41.083" level="INFO">Connect to DB using : psycopg2.connect(database='pdv360', user='pdv360', password=***, host='172.29.143.227', port=6000)</msg>
+<status status="PASS" starttime="20250425 12:32:40.967" endtime="20250425 12:32:41.123"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:40.966" endtime="20250425 12:32:41.124"/>
+</kw>
+<kw name="Execute Sql String" library="DatabaseLibrary">
+<arg>DELETE FROM PHYSICAL_TABLE_MANAGEMENT;</arg>
+<doc>Executes the ``sql_string`` as a single SQL command.</doc>
+<msg timestamp="20250425 12:32:41.124" level="INFO" html="true">Executing sql:&lt;br&gt;&lt;code style="font-weight: bold;"&gt;DELETE FROM PHYSICAL_TABLE_MANAGEMENT;&lt;/code&gt;</msg>
+<msg timestamp="20250425 12:32:41.135" level="INFO">Commit the transaction</msg>
+<status status="PASS" starttime="20250425 12:32:41.124" endtime="20250425 12:32:41.139"/>
+</kw>
+<kw name="Desconectar Do Banco" library="clean-database">
+<kw name="Disconnect From Database" library="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<status status="PASS" starttime="20250425 12:32:41.140" endtime="20250425 12:32:41.141"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:41.139" endtime="20250425 12:32:41.141"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:40.965" endtime="20250425 12:32:41.141"/>
+</kw>
+<tag>clean</tag>
+<status status="PASS" starttime="20250425 12:32:40.454" endtime="20250425 12:32:41.142"/>
+</test>
+<doc>Test to list physical table.</doc>
+<status status="PASS" starttime="20250425 12:32:38.406" endtime="20250425 12:32:41.239"/>
+</suite>
+<suite id="s1-s3" name="TC[02]-list-waiters-active" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests\TC[02]-list-waiters-active.robot">
+<test id="s1-s3-t1" name="List waiters active" line="13">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:41.369" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:41.369" endtime="20250425 12:32:41.370"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:41.371" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:41.370" endtime="20250425 12:32:41.371"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:41.373" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:41.372" endtime="20250425 12:32:41.373"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:41.786" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:41.786" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:40 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjEsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MSwiaWF0IjoxNzQ1NTk1MTYxLCJqdGkiOiI5NTdmZDMzZC0wYmYzLTRjMjctODhiYy1jOGIzNTJjYWJiNGYiLCJhdXRob3JpdGllcyI6W119.cfssz_h-U4AvRu_acjW2B0-VZMsf9dgwX4oLGI2gurMP6BX7V727jNEpXriXlUMjaWZyXCQxvNPX2aVfLcDbI7Tsa804ioyuEvtzmypftfIXO12qFrH1xFqheuJ8spQ1Jxmb5K8o8jn2JzJcHpwhh8-wSeeTvx7MsQK5aer47UVOOoTg8p5QEjSo8bnHaWnJHK3G35Cd5wV6cKZiA-FLdTvSe1d_TbDa2IoCZGEKJIgO98caxzmnzRzrCvNopniUkExES9dQCmwZXzdzCmnRMmYsIucVoAeVgh1wqJqzNUMB_JrUiCVS8Gzo0qGl-PfCKY-lF2KnIKZT-Xwpcm4y1g","scope":"profile","token_type":"Bearer","expires_in":1800} 
+ </msg>
+<msg timestamp="20250425 12:32:41.787" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:41.374" endtime="20250425 12:32:41.787"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:41.789" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:41.787" endtime="20250425 12:32:41.789"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:41.789" endtime="20250425 12:32:41.789"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:41.367" endtime="20250425 12:32:41.791"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:41.366" endtime="20250425 12:32:41.791"/>
+</kw>
+<kw name="Should get all waiters active" library="Waiters-active">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:41.792" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:41.792" endtime="20250425 12:32:41.793"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:41.794" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:41.793" endtime="20250425 12:32:41.794"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=waiters/available</arg>
+<arg>headers=${HEADER}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:42.011" level="INFO">GET Request : url=http://localhost:8080/api/waiters/available 
+ path_url=/api/waiters/available 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjEsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MSwiaWF0IjoxNzQ1NTk1MTYxLCJqdGkiOiI5NTdmZDMzZC0wYmYzLTRjMjctODhiYy1jOGIzNTJjYWJiNGYiLCJhdXRob3JpdGllcyI6W119.cfssz_h-U4AvRu_acjW2B0-VZMsf9dgwX4oLGI2gurMP6BX7V727jNEpXriXlUMjaWZyXCQxvNPX2aVfLcDbI7Tsa804ioyuEvtzmypftfIXO12qFrH1xFqheuJ8spQ1Jxmb5K8o8jn2JzJcHpwhh8-wSeeTvx7MsQK5aer47UVOOoTg8p5QEjSo8bnHaWnJHK3G35Cd5wV6cKZiA-FLdTvSe1d_TbDa2IoCZGEKJIgO98caxzmnzRzrCvNopniUkExES9dQCmwZXzdzCmnRMmYsIucVoAeVgh1wqJqzNUMB_JrUiCVS8Gzo0qGl-PfCKY-lF2KnIKZT-Xwpcm4y1g'} 
+ body=None 
+ </msg>
+<msg timestamp="20250425 12:32:42.011" level="INFO">GET Response : url=http://localhost:8080/api/waiters/available 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:42 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"current_page":0,"per_page":10,"total":3,"items":[{"id":1,"name":"Alfred","active":true},{"id":3,"name":"Anastásio","active":true},{"id":2,"name":"J.A.R.V.I.S","active":true}]} 
+ </msg>
+<msg timestamp="20250425 12:32:42.011" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:41.794" endtime="20250425 12:32:42.011"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20250425 12:32:42.011" endtime="20250425 12:32:42.011"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:41.792" endtime="20250425 12:32:42.012"/>
+</kw>
+<tag>waiters</tag>
+<status status="PASS" starttime="20250425 12:32:41.358" endtime="20250425 12:32:42.016"/>
+</test>
+<doc>Test to list waiters active.</doc>
+<status status="PASS" starttime="20250425 12:32:41.326" endtime="20250425 12:32:42.111"/>
+</suite>
+<suite id="s1-s4" name="TC[03]-list-physical-table-status" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests\TC[03]-list-physical-table-status.robot">
+<test id="s1-s4-t1" name="List physical table status" line="13">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:42.252" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:42.251" endtime="20250425 12:32:42.252"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:42.253" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:42.253" endtime="20250425 12:32:42.253"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:42.257" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:42.254" endtime="20250425 12:32:42.257"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:42.759" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:42.759" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:42 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjIsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MiwiaWF0IjoxNzQ1NTk1MTYyLCJqdGkiOiJjNGM0OTlkMC1iNDhkLTQyOWYtYTFiYi1mZWQwZjY1ZmNmMDYiLCJhdXRob3JpdGllcyI6W119.V-rwtRGmHCf3BgUnY75yJww0QoUzv3i5h0DUkl5fFKW7LDOECjth8kjuo5TVfpjzUuef4uN2v-fEZfZayrkCG5LrlJEMXirS3oxXeMk0a6cISTdMonKF_sFepe5yE3--UjGmk2k8YYIy5gUc89CW4hb9A1AqjjJ7bu-1lAra7QB5LN_3Zr-4tzQEPx3slYd9x8Q_lgx0ISD6jiEJnAEb2NeGTnx5MKXfKNHQJRw7fsSHcTFW4mk1XAdVxVbtyQBP0iFs7jGFT_Q5IH6K-yp51CYiIXBAWgtdvakQzpcHcItNOzM0WsaIexJW4NWh-FPoR2fuUeM9NHbapMdOOMoCOA","scope":"profile","token_type":"Bearer","expires_in":1799} 
+ </msg>
+<msg timestamp="20250425 12:32:42.760" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:42.258" endtime="20250425 12:32:42.760"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:42.762" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:42.760" endtime="20250425 12:32:42.762"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:42.762" endtime="20250425 12:32:42.762"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:42.250" endtime="20250425 12:32:42.763"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:42.249" endtime="20250425 12:32:42.764"/>
+</kw>
+<kw name="Should get all status avaliable" library="Physical-table-list-status">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:42.767" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:42.766" endtime="20250425 12:32:42.768"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:42.769" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:42.768" endtime="20250425 12:32:42.769"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=physical-table-status/available</arg>
+<arg>headers=${HEADER}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:42.857" level="INFO">GET Request : url=http://localhost:8080/api/physical-table-status/available 
+ path_url=/api/physical-table-status/available 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjIsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MiwiaWF0IjoxNzQ1NTk1MTYyLCJqdGkiOiJjNGM0OTlkMC1iNDhkLTQyOWYtYTFiYi1mZWQwZjY1ZmNmMDYiLCJhdXRob3JpdGllcyI6W119.V-rwtRGmHCf3BgUnY75yJww0QoUzv3i5h0DUkl5fFKW7LDOECjth8kjuo5TVfpjzUuef4uN2v-fEZfZayrkCG5LrlJEMXirS3oxXeMk0a6cISTdMonKF_sFepe5yE3--UjGmk2k8YYIy5gUc89CW4hb9A1AqjjJ7bu-1lAra7QB5LN_3Zr-4tzQEPx3slYd9x8Q_lgx0ISD6jiEJnAEb2NeGTnx5MKXfKNHQJRw7fsSHcTFW4mk1XAdVxVbtyQBP0iFs7jGFT_Q5IH6K-yp51CYiIXBAWgtdvakQzpcHcItNOzM0WsaIexJW4NWh-FPoR2fuUeM9NHbapMdOOMoCOA'} 
+ body=None 
+ </msg>
+<msg timestamp="20250425 12:32:42.857" level="INFO">GET Response : url=http://localhost:8080/api/physical-table-status/available 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:42 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"current_page":0,"per_page":10,"total":5,"items":[{"id":3,"name":"Em Pagamento","type":"EM_PAGAMENTO","color":"#7B68EE","active":true,"table_count":0},{"id":4,"name":"Fechada","type":"FECHADA","color":"828487","active":true,"table_count":0},{"id":1,"name":"Livre","type":"LIVRE","color":"#00FF7F","active":true,"table_count":0},{"id":2,"name":"Ocupada","type":"OCUPADA","color":"#DAA520","active":true,"table_count":0},{"id":5,"name":"Reservada","type":"RESERVADA","color":"9D1ADA","active":true,"table_count":0}]} 
+ </msg>
+<msg timestamp="20250425 12:32:42.858" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:42.770" endtime="20250425 12:32:42.858"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20250425 12:32:42.858" endtime="20250425 12:32:42.859"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${items}</var>
+<arg>${RESPONSE.json()['items']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250425 12:32:42.861" level="INFO">${items} = [{'id': 3, 'name': 'Em Pagamento', 'type': 'EM_PAGAMENTO', 'color': '#7B68EE', 'active': True, 'table_count': 0}, {'id': 4, 'name': 'Fechada', 'type': 'FECHADA', 'color': '828487', 'active': True, 'ta...</msg>
+<status status="PASS" starttime="20250425 12:32:42.860" endtime="20250425 12:32:42.861"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${nomes_encontrados}</var>
+<arg>[item['name'] for item in ${items}]</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20250425 12:32:42.863" level="INFO">${nomes_encontrados} = ['Em Pagamento', 'Fechada', 'Livre', 'Ocupada', 'Reservada']</msg>
+<status status="PASS" starttime="20250425 12:32:42.862" endtime="20250425 12:32:42.863"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${nomes_esperados}</var>
+<arg>Em Pagamento</arg>
+<arg>Fechada</arg>
+<arg>Livre</arg>
+<arg>Ocupada</arg>
+<arg>Reservada</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20250425 12:32:42.866" level="INFO">${nomes_esperados} = ['Em Pagamento', 'Fechada', 'Livre', 'Ocupada', 'Reservada']</msg>
+<status status="PASS" starttime="20250425 12:32:42.864" endtime="20250425 12:32:42.866"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${nomes_encontrados}</arg>
+<arg>Em Pagamento</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250425 12:32:42.866" endtime="20250425 12:32:42.867"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${nomes_encontrados}</arg>
+<arg>Fechada</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250425 12:32:42.867" endtime="20250425 12:32:42.868"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${nomes_encontrados}</arg>
+<arg>Livre</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250425 12:32:42.869" endtime="20250425 12:32:42.869"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${nomes_encontrados}</arg>
+<arg>Ocupada</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250425 12:32:42.870" endtime="20250425 12:32:42.870"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${nomes_encontrados}</arg>
+<arg>Reservada</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250425 12:32:42.871" endtime="20250425 12:32:42.871"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:42.765" endtime="20250425 12:32:42.872"/>
+</kw>
+<tag>table-status</tag>
+<status status="PASS" starttime="20250425 12:32:42.241" endtime="20250425 12:32:42.873"/>
+</test>
+<doc>Test to list physical table status.</doc>
+<status status="PASS" starttime="20250425 12:32:42.201" endtime="20250425 12:32:43.002"/>
+</suite>
+<suite id="s1-s5" name="TC[04]-list-physical-table-sector" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests\TC[04]-list-physical-table-sector.robot">
+<test id="s1-s5-t1" name="List table sector" line="13">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:43.179" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:43.178" endtime="20250425 12:32:43.180"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:43.182" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:43.180" endtime="20250425 12:32:43.182"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:43.184" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:43.182" endtime="20250425 12:32:43.184"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:43.668" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:43.668" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:43 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjMsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MywiaWF0IjoxNzQ1NTk1MTYzLCJqdGkiOiJlZWYxMzBmNi02YjQ3LTQwODQtOTE3NS0zYWVmMGUyZmM3MTAiLCJhdXRob3JpdGllcyI6W119.CshCnLeG0wVDl4lizWta1qpIMtsj6ttkgV3KUTsOMpz9GA0jt4p-CJzsrMofRxMfkO9R2TbfpXQNBbXy2fahNnl7mJEvljFpNqEP85OYA9zjQTcKg2LWZJd0LhjpfOq7DYO5UtmhogCahojSpk7VWAgMiTby41r-U6HxxxMG2Mwf5RiG6jAT4lddmQyhDWzKuENfiHfHQ-MOn-khsoKO9WkFQzcuBIkFAtT2mVLfGqcqywrR0ZiiVXpCq7WV15ynb34ZDByRs41R0CPOL6id1f6-HWn8eDz4bYXVF5eulRSOgttUR2nGmkoOgkktI4crbkv0baChmcCQ237eHKOl0Q","scope":"profile","token_type":"Bearer","expires_in":1799} 
+ </msg>
+<msg timestamp="20250425 12:32:43.668" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:43.185" endtime="20250425 12:32:43.668"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:43.671" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:43.669" endtime="20250425 12:32:43.671"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:43.671" endtime="20250425 12:32:43.671"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:43.178" endtime="20250425 12:32:43.672"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:43.177" endtime="20250425 12:32:43.672"/>
+</kw>
+<kw name="Should get all sector avaliable" library="Physical-table-list-sector">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:43.674" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:43.674" endtime="20250425 12:32:43.675"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:43.675" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:43.675" endtime="20250425 12:32:43.675"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=table-sectors/available</arg>
+<arg>headers=${HEADER}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:43.756" level="INFO">GET Request : url=http://localhost:8080/api/table-sectors/available 
+ path_url=/api/table-sectors/available 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjMsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2MywiaWF0IjoxNzQ1NTk1MTYzLCJqdGkiOiJlZWYxMzBmNi02YjQ3LTQwODQtOTE3NS0zYWVmMGUyZmM3MTAiLCJhdXRob3JpdGllcyI6W119.CshCnLeG0wVDl4lizWta1qpIMtsj6ttkgV3KUTsOMpz9GA0jt4p-CJzsrMofRxMfkO9R2TbfpXQNBbXy2fahNnl7mJEvljFpNqEP85OYA9zjQTcKg2LWZJd0LhjpfOq7DYO5UtmhogCahojSpk7VWAgMiTby41r-U6HxxxMG2Mwf5RiG6jAT4lddmQyhDWzKuENfiHfHQ-MOn-khsoKO9WkFQzcuBIkFAtT2mVLfGqcqywrR0ZiiVXpCq7WV15ynb34ZDByRs41R0CPOL6id1f6-HWn8eDz4bYXVF5eulRSOgttUR2nGmkoOgkktI4crbkv0baChmcCQ237eHKOl0Q'} 
+ body=None 
+ </msg>
+<msg timestamp="20250425 12:32:43.756" level="INFO">GET Response : url=http://localhost:8080/api/table-sectors/available 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:43 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"current_page":0,"per_page":10,"total":6,"items":[{"id":2,"name":"Área externa","active":true},{"id":1,"name":"Área interna","active":true},{"id":3,"name":"Calçada","active":true},{"id":4,"name":"Calçada outro lado da rua","active":true},{"id":5,"name":"SETOR A","active":true},{"id":6,"name":"SETOR B","active":true}]} 
+ </msg>
+<msg timestamp="20250425 12:32:43.758" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:43.676" endtime="20250425 12:32:43.758"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20250425 12:32:43.758" endtime="20250425 12:32:43.758"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:43.673" endtime="20250425 12:32:43.758"/>
+</kw>
+<tag>sector</tag>
+<status status="PASS" starttime="20250425 12:32:43.170" endtime="20250425 12:32:43.759"/>
+</test>
+<doc>Test to list registered sectors.</doc>
+<status status="PASS" starttime="20250425 12:32:43.124" endtime="20250425 12:32:43.879"/>
+</suite>
+<suite id="s1-s6" name="TC[05]-list-physical-table-active" source="D:\workspace\ProjetosAPTE\Pdv360TesteAPI\Pdv360-Mesa\src\tests\TC[05]-list-physical-table-active.robot">
+<test id="s1-s6-t1" name="List physical table active" line="13">
+<kw name="Start session" library="base" type="SETUP">
+<kw name="Get Access Token" library="Authorization">
+<tag>buscar-token</tag>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:44.077" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:44.076" endtime="20250425 12:32:44.077"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Authorization=Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:44.081" level="INFO">${HEADER} = {'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng=='}</msg>
+<status status="PASS" starttime="20250425 12:32:44.078" endtime="20250425 12:32:44.082"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${DATA}</var>
+<arg>Content-type=x-www-form-urlencoded</arg>
+<arg>grant_type=${grant_type}</arg>
+<arg>scope=${scope}</arg>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<arg>pos_id=${pos_id}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:44.084" level="INFO">${DATA} = {'Content-type': 'x-www-form-urlencoded', 'grant_type': 'urn:ietf:params:oauth:grant-type:custom_client_credentials', 'scope': 'profile', 'username': 'quality', 'password': '123456', 'pos_id': '1'}</msg>
+<status status="PASS" starttime="20250425 12:32:44.083" endtime="20250425 12:32:44.084"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=/oauth2/token</arg>
+<arg>headers=${HEADER}</arg>
+<arg>data=${DATA}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:44.558" level="INFO">POST Request : url=http://localhost:8080/api/oauth2/token 
+ path_url=/api/oauth2/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic Y2xpZW50LWlkLWZyb250OjEyMzQ1Ng==', 'Content-Length': '170', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=Content-type=x-www-form-urlencoded&amp;grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Acustom_client_credentials&amp;scope=profile&amp;username=quality&amp;password=123456&amp;pos_id=1 
+ </msg>
+<msg timestamp="20250425 12:32:44.558" level="INFO">POST Response : url=http://localhost:8080/api/oauth2/token 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:43 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"access_token":"eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjQsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2NCwiaWF0IjoxNzQ1NTk1MTY0LCJqdGkiOiIzNzAzMGU5NS03ZTIyLTRlMjAtOTRhNS05NDM0MmVhY2FlM2YiLCJhdXRob3JpdGllcyI6W119.JpIY15Z359uiOdHC-Msr7hvGZitpnRo1buvaNpD-Z0lZqF4h6og2rV4ScJ8vh3FsNuk7apf0dj7s9nu8xHMwHqKitqXMnviRrcnq_5upQR9KPnsHxy1O5Ob-N1QGaaBlwsXkn15P6TdiSI4AQOdYb2n_4IMAemjhbr8zHcUtQzltmt7Kg-sVMRSrkbONTvmBE3p0cKXOFcxdA2nsBGBmi_6jUiywWDd1-_ofxAcFlCj70qfq-yblUT7GUaabzWCYaNrjh7ii24j3yLdAo9UmPUuYb52Mru81_dk0g1HBP25JdODHKBvtPAC4njNXmz3LVKtEGWqD0gIHCIQDHZ1DQA","scope":"profile","token_type":"Bearer","expires_in":1800} 
+ </msg>
+<msg timestamp="20250425 12:32:44.559" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:44.085" endtime="20250425 12:32:44.559"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${token}</arg>
+<arg>${RESPONSE.json()["access_token"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250425 12:32:44.560" level="INFO">${token} = eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTU...</msg>
+<status status="PASS" starttime="20250425 12:32:44.559" endtime="20250425 12:32:44.560"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" starttime="20250425 12:32:44.560" endtime="20250425 12:32:44.560"/>
+</return>
+<status status="PASS" starttime="20250425 12:32:44.075" endtime="20250425 12:32:44.560"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:44.074" endtime="20250425 12:32:44.561"/>
+</kw>
+<kw name="Should get all table avaliable" library="Physical-table-list-active">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=pdv360-mesa</arg>
+<arg>url=${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250425 12:32:44.562" level="INFO">Creating Session using : alias=pdv360-mesa, url=http://localhost:8080/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250425 12:32:44.562" endtime="20250425 12:32:44.563"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${HEADER}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250425 12:32:44.565" level="INFO">${HEADER} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQta...</msg>
+<status status="PASS" starttime="20250425 12:32:44.563" endtime="20250425 12:32:44.565"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>alias=pdv360-mesa</arg>
+<arg>url=physical-tables/available</arg>
+<arg>headers=${HEADER}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250425 12:32:44.661" level="INFO">GET Request : url=http://localhost:8080/api/physical-tables/available 
+ path_url=/api/physical-tables/available 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ4NXQjUzI1NiI6Ii1YbjVCOWI3OElPRzVYemlzV0IzS2hSdWdEVHNpVEVEZ2s3RDhYYzc2M00iLCJraWQiOiJwZHYzNjAiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjbGllbnQtaWQtZnJvbnQiLCJhdWQiOiJjbGllbnQtaWQtZnJvbnQiLCJuYmYiOjE3NDU1OTUxNjQsInVzZXJfaWQiOiIxIiwicG9zX2lkIjoiMSIsInVzZXJfbmFtZSI6IldpbGwgU291emEiLCJzY29wZSI6WyJwcm9maWxlIl0sImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4MCIsImV4cCI6MTc0NTU5Njk2NCwiaWF0IjoxNzQ1NTk1MTY0LCJqdGkiOiIzNzAzMGU5NS03ZTIyLTRlMjAtOTRhNS05NDM0MmVhY2FlM2YiLCJhdXRob3JpdGllcyI6W119.JpIY15Z359uiOdHC-Msr7hvGZitpnRo1buvaNpD-Z0lZqF4h6og2rV4ScJ8vh3FsNuk7apf0dj7s9nu8xHMwHqKitqXMnviRrcnq_5upQR9KPnsHxy1O5Ob-N1QGaaBlwsXkn15P6TdiSI4AQOdYb2n_4IMAemjhbr8zHcUtQzltmt7Kg-sVMRSrkbONTvmBE3p0cKXOFcxdA2nsBGBmi_6jUiywWDd1-_ofxAcFlCj70qfq-yblUT7GUaabzWCYaNrjh7ii24j3yLdAo9UmPUuYb52Mru81_dk0g1HBP25JdODHKBvtPAC4njNXmz3LVKtEGWqD0gIHCIQDHZ1DQA'} 
+ body=None 
+ </msg>
+<msg timestamp="20250425 12:32:44.662" level="INFO">GET Response : url=http://localhost:8080/api/physical-tables/available 
+ status=200, reason= 
+ headers={'Vary': 'origin,access-control-request-method,access-control-request-headers,accept-encoding', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0', 'X-Frame-Options': 'DENY', 'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 25 Apr 2025 15:32:43 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body={"current_page":0,"per_page":10,"total":16,"items":[{"id":1,"number":1,"max_people":4,"active":true},{"id":2,"number":2,"max_people":4,"active":true},{"id":3,"number":3,"max_people":2,"active":true},{"id":4,"number":4,"max_people":6,"active":true},{"id":5,"number":5,"max_people":4,"active":true},{"id":6,"number":6,"max_people":6,"active":true},{"id":7,"number":7,"max_people":6,"active":true},{"id":8,"number":8,"max_people":4,"active":true},{"id":9,"number":9,"max_people":2,"active":true},{"id":10,"number":10,"max_people":4,"active":true}]} 
+ </msg>
+<msg timestamp="20250425 12:32:44.662" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250425 12:32:44.566" endtime="20250425 12:32:44.662"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20250425 12:32:44.663" endtime="20250425 12:32:44.664"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${quantidade}</var>
+<arg>${RESPONSE.json()['items']}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20250425 12:32:44.666" level="INFO">Length is 10</msg>
+<msg timestamp="20250425 12:32:44.667" level="INFO">${quantidade} = 10</msg>
+<status status="PASS" starttime="20250425 12:32:44.665" endtime="20250425 12:32:44.667"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Existem ${quantidade} itens disponíveis</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250425 12:32:44.668" level="INFO">Existem 10 itens disponíveis</msg>
+<status status="PASS" starttime="20250425 12:32:44.667" endtime="20250425 12:32:44.668"/>
+</kw>
+<status status="PASS" starttime="20250425 12:32:44.561" endtime="20250425 12:32:44.668"/>
+</kw>
+<tag>table-active</tag>
+<status status="PASS" starttime="20250425 12:32:44.066" endtime="20250425 12:32:44.669"/>
+</test>
+<doc>Test to list physical table active.</doc>
+<status status="PASS" starttime="20250425 12:32:44.010" endtime="20250425 12:32:44.758"/>
+</suite>
+<status status="PASS" starttime="20250425 12:32:12.091" endtime="20250425 12:32:44.842"/>
+</suite>
+<statistics>
+<total>
+<stat pass="8" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">clean</stat>
+<stat pass="1" fail="0" skip="0">physical-table</stat>
+<stat pass="1" fail="0" skip="0">sector</stat>
+<stat pass="1" fail="0" skip="0">smoke</stat>
+<stat pass="1" fail="0" skip="0">table-active</stat>
+<stat pass="1" fail="0" skip="0">table-status</stat>
+<stat pass="1" fail="0" skip="0">waiters</stat>
+</tag>
+<suite>
+<stat pass="8" fail="0" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="TC[00]-authorization">Tests.TC[00]-authorization</stat>
+<stat pass="3" fail="0" skip="0" id="s1-s2" name="TC[01]-physical-table-open">Tests.TC[01]-physical-table-open</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s3" name="TC[02]-list-waiters-active">Tests.TC[02]-list-waiters-active</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s4" name="TC[03]-list-physical-table-status">Tests.TC[03]-list-physical-table-status</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s5" name="TC[04]-list-physical-table-sector">Tests.TC[04]-list-physical-table-sector</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s6" name="TC[05]-list-physical-table-active">Tests.TC[05]-list-physical-table-active</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
